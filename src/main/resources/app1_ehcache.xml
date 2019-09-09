@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+	<diskStore path="java.io.tmpdir/ehcache-rmi-4000" />
+
+
+
+
+	<!-- 默认缓存 -->
+	<defaultCache maxElementsInMemory="1000" eternal="true"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		diskSpoolBufferSizeMB="30" maxElementsOnDisk="10000000"
+		diskPersistent="true" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU">
+	</defaultCache>
+
+	<!-- demo缓存 -->
+	<cache name="userCache" maxElementsInMemory="1000" eternal="false"
+	timeToIdleSeconds="120" timeToLiveSeconds="300" overflowToDisk="true"
+	diskSpoolBufferSizeMB="30" maxElementsOnDisk="10000000" diskPersistent="false"
+	diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" />
+		<!-- 用于在初始化缓存，以及自动设置 -->
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+</ehcache>
